@@ -2,11 +2,13 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 target 'YTTFakeServer', :exclusive => true do
   pod "YTTFakeServer", :path => "../"
+  pod "AFNetworking", "~> 2.5"
+  pod "SVProgressHUD", "~> 1.1"
 end
 
 target 'Tests', :exclusive => true do
   pod "YTTFakeServer", :path => "../"
-
+  pod "AFNetworking", "~> 2.5"
   pod 'Specta', '~> 0.2.1'
   pod 'Expecta'
 end
