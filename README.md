@@ -36,7 +36,7 @@ To run the example project, clone the repo, and run `pod install` from the Examp
 
 First, configure with ``YTTFakeServerConfiguration``. You can set custom bundle.
 
-``
+```
 [YTTFakeServer configure:^(YTTFakeServerConfiguration *configuration) {
     configuration.hosts = @["http://your.host/"];
     configuration.delegate = self; // delegate 
@@ -44,7 +44,7 @@ First, configure with ``YTTFakeServerConfiguration``. You can set custom bundle.
     configuration.resourceBundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"YourCustomBundle" ofType:@"bundle"]];
     configuration.resourceFileExtension = @"json"; // resource type
 }];
-``
+```
 
 For example, if you want to set response json with path like ``api/foo/bar``,
 you just set bundle which has ``api/foo/bar.json``. It's very simple.
@@ -60,16 +60,16 @@ you just set bundle which has ``api/foo/bar.json``. It's very simple.
 
 If you use ``NSURLConnection``, you need to register ``NSURLProtocol`` like this.
 
-``
+```
 [NSURLProtocol registerClass:[YTTFakeServer class]];
-``
+```
 
 If you use ``NSURLSession``, use ``NSURLSessionConfiguration``.
 
-``
+```
 NSURLSessionConfiguration *sessionConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
 sessionConfiguration.protocolClasses = @[[YTTFakeServer class]];
-``
+```
 
 ### Advanced 
 
