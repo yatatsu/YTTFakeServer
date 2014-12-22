@@ -228,7 +228,7 @@ static NSInteger const YTTProvisionHTTPStatusCodeNotFound = 404;
     if ([sharedConfiguration.delegate respondsToSelector:@selector(YTTFakeServerClient:responseForRequest:)]) {
         YTTFakeServerResponse *res = [sharedConfiguration.delegate YTTFakeServerClient:client responseForRequest:request];
         response = res.response;
-        if (!res.responseData) {
+        if (res.responseData) {
             responseData = res.responseData;
         }
     }
