@@ -74,13 +74,32 @@ sessionConfiguration.protocolClasses = @[[YTTFakeServer class]];
 ### Advanced 
 
 ``YTTFakeServerDelegate`` provides API for several usage.
-For Example, ``YTTFakeServerClient:responseDataForRequest``, define different response data with each request.
-Please check example project.
+
+this is custom response sample.
+
+```
+- (YTTFakeServerResponse *)YTTFakeServerClient:(id<NSURLProtocolClient>)client responseForRequest:(NSURLRequest *)request
+{
+    NSString *path = request.URL.path;
+    if ([path isEqualToString:@"/api/auth"]) {
+        NSDictionary *param = [NSURLProtocol propertyForKey:@"parameters" inRequest:request];
+        if (![param[@"password"] isEqualToString:@"1234"]) {
+            NSBundle *bundle = [NSBundle bundleWithPath:[[NSBundle mainBundle] pathForResource:@"YTTFakeServer" ofType:@"bundle"]];
+            NSData *responseData = [[NSData alloc] initWithContentsOfFile:[bundle pathForResource:@"auth_error" ofType:@"json" inDirectory:@"api"]];
+            return [[YTTFakeServerResponse alloc] initWithURL:request.URL headers:request.allHTTPHeaderFields status:400 responseData:responseData];
+        }
+    }
+    return nil;
+}
+```
+
+And more several delegate methods are supported. All methods are optional. Check the sample or document.
 
 #### NOTE:
 
 If you use NSURLSession, and you want to check HTTPBody, use ``NSURLProtocol:setProperty:forKey:inRequest``.
-Please check the issue of [AliSoftware/OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs), [issue52](https://github.com/AliSoftware/OHHTTPStubs/issues/52)
+
+Please check the sample and issue of [AliSoftware/OHHTTPStubs](https://github.com/AliSoftware/OHHTTPStubs), [issue52](https://github.com/AliSoftware/OHHTTPStubs/issues/52)
 
 ## Requirements
 
